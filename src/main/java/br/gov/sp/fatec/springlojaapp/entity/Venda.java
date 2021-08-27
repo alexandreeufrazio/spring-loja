@@ -79,6 +79,6 @@ public class Venda {
     }
 
     public void setProdutos(Set<Produto> produtos) {
-        this.produtos = produtos;
-    } 
+		this.produtos = produtos;
+	}
 }

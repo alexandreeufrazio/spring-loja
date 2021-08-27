@@ -40,9 +40,9 @@ create table ite_itemvenda(
   foreign key ite_ven_fk (ven_id) references ven_venda (ven_id) on delete restrict on update cascade
 );
 
- insert into mar_marca(mar_nome) values('DELL');
- insert into pro_produto(pro_nome, mar_id, pro_preco) values('DESKTOP', 4, 9500.00);
- commit;
+ --insert into mar_marca(mar_nome) values('DELL');
+ --insert into pro_produto(pro_nome, mar_id, pro_preco) values('DESKTOP', 1, 9500.00);
+ --commit;
 
 
 
