@@ -44,8 +44,6 @@ public class MarcaServiceTests {
 		marcaService.atualizarMarca(marca.getId(), "Oracle");
 
 		assertEquals("Oracle",marca.getNome());
-
-		
 	}
   
 }
