@@ -6,7 +6,7 @@ import br.gov.sp.fatec.springlojaapp.repository.MarcaRepository;
 import br.gov.sp.fatec.springlojaapp.entity.Marca;
 
 
-@Service("produtoService")
+@Service("marcaService")
 public class MarcaServiceImpl implements MarcaService{
 
     @Autowired
