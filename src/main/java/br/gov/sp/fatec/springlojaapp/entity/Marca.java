@@ -48,5 +48,4 @@ public class Marca {
     public void setProdutos(Set<Produto> produtos) {
         this.produtos = produtos;
     }
-    
 }

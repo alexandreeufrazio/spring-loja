@@ -17,11 +17,14 @@ public class MarcaServiceTests {
     @Autowired
     private MarcaRepository marcaRepo;
 
+	@Autowired
+	private MarcaService marcaService;
+
     @Test
-	void marcaServiceexcluirPorIdTestOK() {
+	void marcaServiceexcluirTestOK() {
 		Marca marca = marcaRepo.findById(1L).get();
 
-		marcaRepo.delete(marca);
+		marcaService.excluirMarca(marca);
 		
 	    assertNull(marca.getId());
 		
