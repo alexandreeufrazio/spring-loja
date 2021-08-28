@@ -1,5 +1,7 @@
 package br.gov.sp.fatec.springlojaapp.service;
 
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,28 @@ public class MarcaServiceTests {
 
     @Test
 	void marcaServiceexcluirTestOK() {
-		Marca marca = marcaRepo.findById(1L).get();
-
+		Marca marca = new Marca();
+		marca.setNome("IBM");
+		marcaRepo.save(marca);
+		
 		marcaService.excluirMarca(marca);
 		
-	    assertNull(marca.getId());
+	    assertNull(marcaRepo.findByNomeIgnoreCase("IBM"));
 		
 	}
-    
+
+	@Test
+	void marcaServiceAtualizaTestOK(){
+		Marca marca = new Marca();
+		marca.setNome("IBM");
+		marcaRepo.save(marca);
+
+
+		marcaService.atualizarMarca(marca.getId(), "Oracle");
+
+		assertEquals("Oracle",marca.getNome());
+
+		
+	}
+  
 }

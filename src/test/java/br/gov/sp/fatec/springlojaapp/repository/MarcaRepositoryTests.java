@@ -19,7 +19,7 @@ public class MarcaRepositoryTests {
 	
 	
 	@Test
-	void testaMarcaInsercao() {
+	void testaMarcaInsercaoTestoOK() {
 		Marca marca = new Marca();
 		marca.setNome("Acer");
 		marcaRepo.save(marca);

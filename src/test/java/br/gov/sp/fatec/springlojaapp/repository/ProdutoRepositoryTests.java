@@ -25,7 +25,7 @@ public class ProdutoRepositoryTests {
 	private MarcaRepository marcaRepo;
 	
 	@Test
-	void testaProdutoInsercao() {
+	void testaProdutoInsercaoTestOk() {
 		Marca marca = new Marca();
 		Produto produto = new Produto();
 		marca.setNome("Acer");
@@ -38,8 +38,14 @@ public class ProdutoRepositoryTests {
 	}
 	
 	@Test
-	void testaBuscaProdutoPorNomeAndMarcaQuery() {
+	void testaBuscaProdutoPorNomeAndMarcaQueryTestOK() {
 		List<Produto> produto = produtoRepo.buscaProdutoPorNomeEMarca("DESKTOP", "DELL");
+		assertFalse(produto.isEmpty());
+	}
+
+	@Test
+	void testaBuscaNomeOrPrecoTestOk() {
+		List<Produto> produto = produtoRepo.findByNomeOrPreco("DESKTOP", new BigDecimal("9500.00"));
 		assertFalse(produto.isEmpty());
 	}
     
