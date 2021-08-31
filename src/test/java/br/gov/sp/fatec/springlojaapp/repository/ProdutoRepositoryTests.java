@@ -2,7 +2,6 @@ package br.gov.sp.fatec.springlojaapp.repository;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.Test;
