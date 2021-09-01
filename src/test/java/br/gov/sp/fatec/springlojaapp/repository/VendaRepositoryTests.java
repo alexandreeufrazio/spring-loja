@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.HashSet;
+import org.springframework.dao.DataIntegrityViolationException;
 
 @SpringBootTest
 @Transactional
@@ -53,5 +54,14 @@ public class VendaRepositoryTests {
         vendaRepo.save(venda);
 
 		assertNotNull(venda.getId());
+    }
+
+    @Test
+	void testaVendaInsercaoTestNoOk() {
+        Assertions.assertThrows(DataIntegrityViolationException.class, ()->
+        	{
+                Venda venda = new Venda();
+                vendaRepo.save(venda);
+            });
     }
 }
