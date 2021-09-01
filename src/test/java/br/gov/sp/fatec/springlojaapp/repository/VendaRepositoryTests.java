@@ -8,13 +8,24 @@ import br.gov.sp.fatec.springlojaapp.entity.Marca;
 import br.gov.sp.fatec.springlojaapp.entity.Produto;
 import br.gov.sp.fatec.springlojaapp.entity.Venda;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Date;
+import java.util.HashSet;
 
 @SpringBootTest
 @Transactional
 @Rollback
 public class VendaRepositoryTests {
+
+    @Autowired
+	private ProdutoRepository produtoRepo;
+	
+	@Autowired
+	private MarcaRepository marcaRepo;
+
+    @Autowired
+	private VendaRepository vendaRepo;
 
     @Test
 	void testaVendaInsercaoTestOk() {

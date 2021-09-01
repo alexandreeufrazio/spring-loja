@@ -9,6 +9,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import br.gov.sp.fatec.springlojaapp.entity.Venda;
 
+
 @SpringBootTest
 @Transactional
 @Rollback
