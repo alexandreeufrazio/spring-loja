@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.HashSet;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.junit.jupiter.api.Assertions;
 
 @SpringBootTest
 @Transactional
