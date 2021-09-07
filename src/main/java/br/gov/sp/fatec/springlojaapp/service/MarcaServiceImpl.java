@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.gov.sp.fatec.springlojaapp.repository.MarcaRepository;
 import br.gov.sp.fatec.springlojaapp.entity.Marca;
-
+import java.util.List;
+import java.util.Optional;
 
 @Service("marcaService")
 public class MarcaServiceImpl implements MarcaService{
@@ -30,5 +31,18 @@ public class MarcaServiceImpl implements MarcaService{
         marcaRepo.save(marca);
         return marca;
     }
+
+    @Override
+    public List<Marca> buscarTodasMarcas() {
+	    return marcaRepo.findAll();
+    } 
     
+    @Override
+    public Marca buscarMarcaPorId(Long id){
+        Optional<Marca> marcaOp = marcaRepo.findById(id);
+        if(marcaOp.isPresent()) {
+            return marcaOp.get();
+        }
+        throw new RuntimeException("Marca não encontrado!");
+    }
 }
