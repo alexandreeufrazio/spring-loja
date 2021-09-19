@@ -10,9 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonView;
-import br.gov.sp.fatec.springlojaapp.controller.View;
-
 import java.math.BigDecimal;
 import java.util.Set;
 
