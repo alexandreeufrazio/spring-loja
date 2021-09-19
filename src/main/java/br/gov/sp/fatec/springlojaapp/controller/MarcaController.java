@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.gov.sp.fatec.springlojaapp.entity.Marca;
-import br.gov.sp.fatec.springlojaapp.repository.MarcaRepository;
+import br.gov.sp.fatec.springlojaapp.service.MarcaService;
 
 
 import java.util.List;
