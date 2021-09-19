@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import br.gov.sp.fatec.springlojaapp.controller.View;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class Marca {
     @Column (name = "mar_id")
     private Long id;
 
+    @JsonView(View.MarcaResumo.class)
     @Column (name = "mar_nome")
     private String nome;
 

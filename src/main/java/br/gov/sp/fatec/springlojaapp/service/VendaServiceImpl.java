@@ -38,7 +38,7 @@ public class VendaServiceImpl implements VendaService{
 			vendaRepo.save(venda);
 			return venda;
 	    }
-	    return null;
+		throw new RuntimeException("Produto não encontrado!");	
 	}
 
 	@Override

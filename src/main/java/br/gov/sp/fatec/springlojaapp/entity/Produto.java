@@ -10,8 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import br.gov.sp.fatec.springlojaapp.controller.View;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -24,7 +24,7 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pro_id")
 	private Long id;
-	
+
 	@Column(name ="pro_nome")
 	private String nome;
 	
@@ -33,7 +33,6 @@ public class Produto {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mar_id")
-    @JsonIgnore
 	private Marca marca;
 	
 	@ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)

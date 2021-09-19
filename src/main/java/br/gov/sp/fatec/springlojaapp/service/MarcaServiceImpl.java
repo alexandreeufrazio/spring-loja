@@ -50,7 +50,7 @@ public class MarcaServiceImpl implements MarcaService{
 
     @Override
     public Marca buscarMarcaPorNome(String nome){
-        Marca marca = marcaRepo.findByNomeIgnoreCase(nome);
+        Marca marca = marcaRepo.findByNome(nome);
         if (marca != null){
             return marca;
         }

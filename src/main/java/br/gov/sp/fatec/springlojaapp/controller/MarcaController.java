@@ -1,6 +1,5 @@
 package br.gov.sp.fatec.springlojaapp.controller;
 
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
