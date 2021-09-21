@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import br.gov.sp.fatec.springlojaapp.controller.View;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.Set;
@@ -26,6 +28,7 @@ public class Marca {
     @Column (name = "mar_nome")
     private String nome;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "marca")
 	private Set<Produto> produtos;
    
