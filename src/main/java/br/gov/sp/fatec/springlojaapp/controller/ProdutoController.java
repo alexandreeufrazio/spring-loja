@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.gov.sp.fatec.springlojaapp.service.ProdutoService;
 import br.gov.sp.fatec.springlojaapp.entity.Produto;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -16,6 +17,11 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoService produtoService;
+
+    @GetMapping
+    public List<Produto> buscarTodasProdutos() {
+        return produtoService.pesquisarTodosProdutos();
+    }
 
     @GetMapping(value = "{produto}")
     public Produto buscarProdutoPorNome(@PathVariable("produto") String nome){
