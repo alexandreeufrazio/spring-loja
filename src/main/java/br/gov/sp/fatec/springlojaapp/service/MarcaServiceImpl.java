@@ -22,8 +22,11 @@ public class MarcaServiceImpl implements MarcaService{
 	
     @Override
 	public Marca pesquisarPorIdMarca (Long id){
-        Marca marca = marcaRepo.findById(id).get();
-        return marca;
+        Optional<Marca> marcaOp = marcaRepo.findById(id);
+        if(marcaOp.isPresent()) {
+            return marcaOp.get();
+        }
+        throw new RuntimeException("Marca não encontrado!"); 
     }
  
     @Override
