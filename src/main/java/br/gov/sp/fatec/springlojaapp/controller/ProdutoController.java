@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import br.gov.sp.fatec.springlojaapp.service.ProdutoService;
 import br.gov.sp.fatec.springlojaapp.entity.Produto;
@@ -28,8 +29,8 @@ public class ProdutoController {
 	    return produtoService.pesquisarPorIdProduto(id);
     } 
 
-    @GetMapping(value = "/nome/{produto}")
-    public Produto buscarProdutoPorNome(@PathVariable("produto") String nome){
+    @GetMapping(value = "/nome")
+    public Produto buscarProdutoPorNome(@RequestParam(value="nome") String nome){
         return produtoService.pesquisarPorNomeProduto(nome);
     }  
 }
