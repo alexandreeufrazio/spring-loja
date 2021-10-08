@@ -9,6 +9,7 @@ import br.gov.sp.fatec.springlojaapp.entity.Marca;
 import br.gov.sp.fatec.springlojaapp.repository.MarcaRepository;
 import br.gov.sp.fatec.springlojaapp.repository.ProdutoRepository;
 import java.util.List;
+import java.util.Optional;
 
 @Service("produtoService")
 public class ProdutoServiceImpl implements ProdutoService {
@@ -55,9 +56,12 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	@Override
-	public Produto pesquisarPorIdProduto(Long id) {
-		Produto produto = produtoRepo.findById(id).get();
-		return produto;
+	public Produto pesquisarPorIdProduto (Long id) {
+		Optional<Produto> produtoOp = produtoRepo.findById(id);
+        if(produtoOp.isPresent()) {
+            return produtoOp.get();
+        }
+        throw new RuntimeException("Produto não encontrado!");
 	}
 
 	@Override

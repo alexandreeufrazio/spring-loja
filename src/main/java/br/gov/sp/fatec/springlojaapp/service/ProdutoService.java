@@ -14,7 +14,7 @@ public interface ProdutoService {
 	
 	public Produto pesquisarPorNomeProduto (String nome);
 	
-	public Produto pesquisarPorIdProduto (Long id);
+	public Produto pesquisarPorIdProduto (int i);
 	
 	public List<Produto> pesquisarTodosProdutos ();
 

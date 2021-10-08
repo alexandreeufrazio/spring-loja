@@ -29,7 +29,7 @@ public class MarcaController {
     }
 
     @GetMapping(value = "/{id}")
-    public Marca buscarPorId(@PathVariable("id") Long id) {
+    public Marca buscarMarcaPorId(@PathVariable("id") Long id) {
 	    return marcaService.buscarMarcaPorId(id);
     } 
 

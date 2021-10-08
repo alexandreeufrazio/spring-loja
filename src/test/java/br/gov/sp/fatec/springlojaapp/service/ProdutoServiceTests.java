@@ -26,6 +26,12 @@ public class ProdutoServiceTests {
 		
 	    assertNotNull(produto.getId());
 	}
+
+	@Test
+	void testapesquisarPorIdProdutoTestOk() {
+		Produto produto = produtoService.pesquisarPorIdProduto(1);
+		assertNotNull(produto.getId());
+	}
 	
 	
     
