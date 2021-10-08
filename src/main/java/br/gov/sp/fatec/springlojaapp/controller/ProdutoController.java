@@ -23,7 +23,7 @@ public class ProdutoController {
         return produtoService.pesquisarTodosProdutos();
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "id/{id}")
     public Produto buscarProdutoPorId(@PathVariable("id") Long id) {
 	    return produtoService.pesquisarPorIdProduto(id);
     } 

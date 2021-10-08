@@ -29,7 +29,7 @@ public class ProdutoServiceTests {
 
 	@Test
 	void testapesquisarPorIdProdutoTestOk() {
-		Produto produto = produtoService.pesquisarPorIdProduto(1);
+		Produto produto = produtoService.pesquisarPorIdProduto(1L);
 		assertNotNull(produto.getId());
 	}
 	
