@@ -25,8 +25,9 @@ public class MarcaServiceImpl implements MarcaService{
         Optional<Marca> marcaOp = marcaRepo.findById(id);
         if(marcaOp.isPresent()) {
             marcaRepo.deleteById(id);
-        }
+        }else{
         throw new RuntimeException("Marca não encontrado!"); 
+        }
 			
     }
 	
