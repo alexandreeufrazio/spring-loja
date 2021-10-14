@@ -19,6 +19,16 @@ public class MarcaServiceImpl implements MarcaService{
     public void excluirMarca (Marca marca){
 		marcaRepo.delete(marca);	
     }
+
+    @Override
+    public void deleteMarca (Long id){
+        Optional<Marca> marcaOp = marcaRepo.findById(id);
+        if(marcaOp.isPresent()) {
+            marcaRepo.deleteById(id);
+        }
+        throw new RuntimeException("Marca não encontrado!"); 
+			
+    }
 	
     @Override
 	public Marca pesquisarPorIdMarca (Long id){
@@ -32,9 +42,12 @@ public class MarcaServiceImpl implements MarcaService{
     @Override
     public Marca atualizarMarca (Long id, String nome){
         Marca marca = marcaRepo.findById(id).get();
-        marca.setNome(nome);
-        marcaRepo.save(marca);
-        return marca;
+        if (marca != null){
+            marca.setNome(nome);
+            marcaRepo.save(marca);
+            return marca;
+        }
+        throw new RuntimeException("Marca não encontrado!");
     }
 
     @Override

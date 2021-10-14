@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.gov.sp.fatec.springlojaapp.service.ProdutoService;
 import br.gov.sp.fatec.springlojaapp.entity.Produto;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController

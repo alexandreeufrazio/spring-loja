@@ -6,6 +6,8 @@ import java.util.List;
 public interface MarcaService {
 
     public void excluirMarca (Marca marca);
+
+    public void deleteMarca (Long id);
 	
 	public Marca pesquisarPorIdMarca (Long id);
 
