@@ -45,7 +45,7 @@ public class MarcaController {
 	    return marcaService.buscarMarcaPorNome(nome);
     } 
 
-   /* @PostMapping
+   @PostMapping
     public ResponseEntity<Marca> cadastrarNovaMarca(@RequestBody Marca marca,
         UriComponentsBuilder uriComponentsBuilder) {
             marca = marcaService.cadastrarMarca(marca.getNome());
@@ -55,13 +55,13 @@ public class MarcaController {
                   "/marca/" + marca.getId()).build().toUri());
               return new ResponseEntity<Marca>(marca, responseHeaders, HttpStatus.CREATED);
       
-    }*/
+    }
 
-    @PostMapping
+    /*@PostMapping
     public Marca cadastrarNovaMarca(@RequestBody Marca marca) {
             return marcaService.cadastrarMarca(marca.getNome());
     
-    }
+    }*/
 
     @PutMapping(value="/{id}")
     public Marca atualizarMarca(@PathVariable("id") Long id, @RequestBody Marca marca){
