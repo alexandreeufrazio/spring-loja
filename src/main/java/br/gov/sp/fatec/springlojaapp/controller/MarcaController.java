@@ -1,6 +1,9 @@
 package br.gov.sp.fatec.springlojaapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import br.gov.sp.fatec.springlojaapp.entity.Marca;
 import br.gov.sp.fatec.springlojaapp.service.MarcaService;
 
@@ -40,9 +45,22 @@ public class MarcaController {
 	    return marcaService.buscarMarcaPorNome(nome);
     } 
 
+   /* @PostMapping
+    public ResponseEntity<Marca> cadastrarNovaMarca(@RequestBody Marca marca,
+        UriComponentsBuilder uriComponentsBuilder) {
+            marca = marcaService.cadastrarMarca(marca.getNome());
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.setLocation(
+              uriComponentsBuilder.path(
+                  "/marca/" + marca.getId()).build().toUri());
+              return new ResponseEntity<Marca>(marca, responseHeaders, HttpStatus.CREATED);
+      
+    }*/
+
     @PostMapping
-    public Marca cadastrarNovaMarca(@RequestBody Marca marca){
-        return marcaService.cadastrarMarca(marca.getNome());
+    public Marca cadastrarNovaMarca(@RequestBody Marca marca) {
+            return marcaService.cadastrarMarca(marca.getNome());
+    
     }
 
     @PutMapping(value="/{id}")

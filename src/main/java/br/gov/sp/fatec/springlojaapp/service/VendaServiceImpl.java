@@ -2,6 +2,7 @@ package br.gov.sp.fatec.springlojaapp.service;
 
 import javax.transaction.Transactional;
 import br.gov.sp.fatec.springlojaapp.entity.Venda;
+import br.gov.sp.fatec.springlojaapp.exception.RegistroNaoEncontradoException;
 import br.gov.sp.fatec.springlojaapp.entity.Produto;
 import java.util.List;
 import java.math.BigDecimal;
@@ -38,7 +39,7 @@ public class VendaServiceImpl implements VendaService{
 			vendaRepo.save(venda);
 			return venda;
 	    }
-		throw new RuntimeException("Produto não encontrado!");	
+		throw new RegistroNaoEncontradoException("Produto não encontrado!");	
 	}
 
 	@Override

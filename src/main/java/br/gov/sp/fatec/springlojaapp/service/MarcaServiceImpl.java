@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.gov.sp.fatec.springlojaapp.repository.MarcaRepository;
 import br.gov.sp.fatec.springlojaapp.entity.Marca;
+import br.gov.sp.fatec.springlojaapp.exception.RegistroNaoEncontradoException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +28,7 @@ public class MarcaServiceImpl implements MarcaService{
         if(marcaOp.isPresent()) {
             marcaRepo.deleteById(id);
         }else{
-        throw new RuntimeException("Marca não encontrado!"); 
+        throw new RegistroNaoEncontradoException("Marca não encontrado!"); 
         }
 			
     }
@@ -37,7 +39,7 @@ public class MarcaServiceImpl implements MarcaService{
         if(marcaOp.isPresent()) {
             return marcaOp.get();
         }
-        throw new RuntimeException("Marca não encontrado!"); 
+        throw new RegistroNaoEncontradoException("Marca não encontrado!"); 
     }
  
     @Override
@@ -48,7 +50,7 @@ public class MarcaServiceImpl implements MarcaService{
             marcaRepo.save(marca);
             return marca;
         }
-        throw new RuntimeException("Marca não encontrado!");
+        throw new RegistroNaoEncontradoException("Marca não encontrado!");
     }
 
     @Override
@@ -62,7 +64,7 @@ public class MarcaServiceImpl implements MarcaService{
         if(marcaOp.isPresent()) {
             return marcaOp.get();
         }
-        throw new RuntimeException("Marca não encontrado!");
+        throw new RegistroNaoEncontradoException("Marca não encontrado!");
     }
 
     @Override
@@ -71,7 +73,7 @@ public class MarcaServiceImpl implements MarcaService{
         if (marca != null){
             return marca;
         }
-        throw new RuntimeException("Marca não encontrado!");
+        throw new RegistroNaoEncontradoException("Marca não encontrado!");
     }
 
     @Override
@@ -85,6 +87,6 @@ public class MarcaServiceImpl implements MarcaService{
 		    marcaRepo.save(marca);
             return marca;
 		}
-        throw new RuntimeException("Marca já cadastrada!");	
+        throw new RegistroNaoEncontradoException("Marca já cadastrada!");	
     }
 }

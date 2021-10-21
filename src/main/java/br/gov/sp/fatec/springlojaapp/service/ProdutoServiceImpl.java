@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.gov.sp.fatec.springlojaapp.entity.Produto;
+import br.gov.sp.fatec.springlojaapp.exception.RegistroNaoEncontradoException;
 import br.gov.sp.fatec.springlojaapp.entity.Marca;
 import br.gov.sp.fatec.springlojaapp.repository.MarcaRepository;
 import br.gov.sp.fatec.springlojaapp.repository.ProdutoRepository;
@@ -52,7 +53,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 		if(produto != null){
 			return produto;
 		}
-		throw new RuntimeException("Produto não encontrado!");	
+		throw new RegistroNaoEncontradoException("Produto não encontrado!");	
 	}
 
 	@Override
@@ -61,7 +62,7 @@ public class ProdutoServiceImpl implements ProdutoService {
         if(produtoOp.isPresent()) {
             return produtoOp.get();
         }
-        throw new RuntimeException("Produto não encontrado!");
+        throw new RegistroNaoEncontradoException("Produto não encontrado!");
 	}
 
 	@Override
