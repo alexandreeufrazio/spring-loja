@@ -74,12 +74,25 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	@Override
-	public Produto atualizarProduto(String nome, BigDecimal preco, String nomeMarca) {
-		return null;
+	public Produto atualizarProduto (Long id, String nome, BigDecimal preco, String nomeMarca) {
+		Produto produto = produtoRepo.findById(id).get();
+
+		Marca marca = marcaRepo.findByNomeIgnoreCase(nomeMarca);
+				
+	    if(marca == null) {
+	    	marca = new Marca();
+		    marca.setNome(nomeMarca);
+		    marcaRepo.save(marca);
+		}
+
+        if (produto != null){
+            produto.setNome(nome);
+			produto.setPreco(preco);
+			produto.setMarca(marca);
+            produtoRepo.save(produto);
+            return produto;
+        }
+        throw new RegistroNaoEncontradoException("Marca não encontrado!");
 	}
 
-	@Override
-	public Produto atualizarProduto(Long id, String nome, BigDecimal preco, String nomeMarca) {
-		return null;
-	}  
 }
