@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -32,6 +35,7 @@ public class Produto {
 	@JoinColumn(name = "mar_id")
 	private Marca marca;
 	
+    @JsonIgnore
 	@ManyToMany(mappedBy = "produtos", fetch = FetchType.LAZY)
 	private Set<Venda> vendas;
 

@@ -27,7 +27,7 @@ create table pro_produto(
 create table ven_venda(
 	ven_id bigint unsigned not null auto_increment,
 	ven_data date not null,
-        ven_qtde bigint not null,
+    ven_qtde bigint not null,
   	ven_preco_venda decimal(15,2) not null,
 	primary key (ven_id)
 );
@@ -42,6 +42,8 @@ create table ite_itemvenda(
 
  insert into mar_marca(mar_nome) values('DELL');
  insert into pro_produto(pro_nome, mar_id, pro_preco) values('DESKTOP', 1, 9500.00);
+ insert into ven_venda(ven_data, ven_qtde, ven_preco_venda) values('2021-10-21', 2, 9500.00);
+ insert into ite_itemvenda(pro_id, ven_id) values (1,1);
  commit;
 
 

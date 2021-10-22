@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.gov.sp.fatec.springlojaapp.repository.VendaRepository;
 import br.gov.sp.fatec.springlojaapp.repository.ProdutoRepository;
+import java.util.Optional;
 
 
 @Service("vendaService")
@@ -54,7 +55,11 @@ public class VendaServiceImpl implements VendaService{
 
 	@Override
 	public Venda pesquisarPorIdVenda(Long id) {
-		return null;
+		Optional<Venda> vendaOp = vendaRepo.findById(id);
+        if(vendaOp.isPresent()) {
+            return vendaOp.get();
+        }
+        throw new RegistroNaoEncontradoException("Venda não encontrado!");
 	}
 
 	@Override
