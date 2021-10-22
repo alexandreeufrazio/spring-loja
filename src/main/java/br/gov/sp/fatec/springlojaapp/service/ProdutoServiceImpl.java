@@ -44,9 +44,12 @@ public class ProdutoServiceImpl implements ProdutoService {
 		Produto produto = produtoRepo.findById(id).get();
 		if(produto != null) {
 			produtoRepo.delete(produto);
-			}
+		}else{
+			throw new RegistroNaoEncontradoException("Produto não encontrado!"); 	
+		}
 	}
 
+	
 	@Override
 	public Produto pesquisarPorNomeProduto(String nome) {
 		Produto produto = produtoRepo.findByNomeIgnoreCase(nome);
