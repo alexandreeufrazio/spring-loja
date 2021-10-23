@@ -40,6 +40,35 @@ create table ite_itemvenda(
   foreign key ite_ven_fk (ven_id) references ven_venda (ven_id) on delete restrict on update cascade
 );
 
+create table usr_usuario (
+usr_id bigint unsigned not null auto_increment,
+usr_nome varchar(20) not null,
+usr_email varchar(100) not null,
+usr_senha varchar(100) not null,
+primary key (usr_id),
+unique key uni_usuario_nome (usr_nome),
+unique key uni_usuario_email (usr_email)
+);
+
+create table aut_autorizacao (
+aut_id bigint unsigned not null auto_increment,
+aut_nome varchar(20) not null,
+primary key (aut_id),
+unique key uni_aut_nome (aut_nome)
+);
+
+create table uau_usuario_autorizacao (
+usr_id bigint unsigned not null,
+aut_id bigint unsigned not null,
+primary key (usr_id, aut_id),
+foreign key uau_usr_fk (usr_id)
+references usr_usuario (usr_id)
+on delete restrict on update cascade,
+foreign key uau_aut_fk (aut_id)
+references aut_autorizacao (aut_id)
+on delete restrict on update cascade
+);
+
  insert into mar_marca(mar_nome) values('DELL');
  insert into pro_produto(pro_nome, mar_id, pro_preco) values('DESKTOP', 1, 9500.00);
  insert into ven_venda(ven_data, ven_qtde, ven_preco_venda) values('2021-10-21', 2, 9500.00);
