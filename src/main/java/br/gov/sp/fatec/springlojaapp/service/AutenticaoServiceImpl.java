@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.springlojaapp.service;
 
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,11 @@ public class AutenticaoServiceImpl implements AutenticaoService{
 
     return usuario;
     }
+    @Override
+    public List<Usuario> buscarTodosUsuarios() {
+        return usuarioRepo.findAll();
+    }
+
+    
     
 }
