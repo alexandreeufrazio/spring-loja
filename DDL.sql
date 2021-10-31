@@ -73,6 +73,12 @@ on delete restrict on update cascade
  insert into pro_produto(pro_nome, mar_id, pro_preco) values('DESKTOP', 1, 9500.00);
  insert into ven_venda(ven_data, ven_qtde, ven_preco_venda) values('2021-10-21', 2, 9500.00);
  insert into ite_itemvenda(pro_id, ven_id) values (1,1);
+
+insert into usr_usuario (usr_nome, usr_email, usr_senha)
+  values ('admin', 'admin@admin.com', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C');
+insert into aut_autorizacao (aut_nome)
+	values ('ROLE_ADMIN');
+insert into uau_usuario_autorizacao values (1, 1);
  commit;
 
 
