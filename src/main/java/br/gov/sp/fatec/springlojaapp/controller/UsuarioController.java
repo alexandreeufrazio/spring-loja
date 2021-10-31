@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
+import org.springframework.http.HttpStatus;
 import br.gov.sp.fatec.springlojaapp.entity.Usuario;
 import br.gov.sp.fatec.springlojaapp.service.AutenticaoService;
 
