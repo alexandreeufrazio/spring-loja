@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,9 @@ public class AutenticaoServiceImpl implements AutenticaoService{
     @Autowired
     private UsuarioRepository usuarioRepo;
 
+    @Autowired
+    private PasswordEncoder passEncoder;
+
     @Override
     @Transactional
     public Usuario cadastrarUsuario(String nome, String email, String senha, String nomeAutorizacao) {
@@ -36,7 +40,7 @@ public class AutenticaoServiceImpl implements AutenticaoService{
     Usuario usuario = new Usuario();
     usuario.setNome(nome);
     usuario.setEmail(email);
-    usuario.setSenha(senha);
+    usuario.setSenha(passEncoder.encode(senha));
     usuario.setAutorizacoes(new HashSet<Autorizacao>());
     usuario.getAutorizacoes().add(autorizacao);
     usuarioRepo.save(usuario);
