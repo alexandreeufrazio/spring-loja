@@ -20,11 +20,10 @@ public class AutenticaoServiceImpl implements AutenticaoService{
     private AutorizacaoRepository autorizacaoRepo;
 
     @Autowired
-
     private UsuarioRepository usuarioRepo;
+
     @Override
     @Transactional
-    @PreAuthorize("isAuthenticated()")
     public Usuario cadastrarUsuario(String nome, String email, String senha, String nomeAutorizacao) {
         Autorizacao autorizacao = autorizacaoRepo.findByNome(nomeAutorizacao);
 
@@ -44,11 +43,10 @@ public class AutenticaoServiceImpl implements AutenticaoService{
 
     return usuario;
     }
+
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Usuario> buscarTodosUsuarios() {
         return usuarioRepo.findAll();
-    }
-
-    
-    
+    }    
 }
