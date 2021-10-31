@@ -1,12 +1,18 @@
 package br.gov.sp.fatec.springlojaapp.controller;
 
+import org.springframework.http.HttpHeaders;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import br.gov.sp.fatec.springlojaapp.entity.Usuario;
 import br.gov.sp.fatec.springlojaapp.service.AutenticaoService;
 
@@ -19,12 +25,12 @@ public class UsuarioController {
     private AutenticaoService autenticacaoService;
 
     @GetMapping
-    //@PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     public List<Usuario> buscarTodosUsuarios(){
         return autenticacaoService.buscarTodosUsuarios();
     }
 
-   /* @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario, 
         UriComponentsBuilder uriComponentsBuilder) {
@@ -34,5 +40,5 @@ public class UsuarioController {
               uriComponentsBuilder.path(
                   "/usuario/" + usuario.getId()).build().toUri());
               return new ResponseEntity<Usuario>(usuario, responseHeaders, HttpStatus.CREATED);
-    */        
+    }
 }
