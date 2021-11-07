@@ -59,6 +59,19 @@ public class AutenticaoServiceImpl implements AutenticaoService{
     @Override
     public UserDetails loadUserByUsername(String userNome) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepo.findByNome(userNome);
-        return null;
+
+        if(usuario == null){
+            throw new UsernameNotFoundException("Usuário " + username + " não encontrado!"); 
+        }
+        return User.builder().username(username)
+			.password(usuario.getSenha())
+			.authorities(usuario.getAutorizacoes()
+					.stream()
+					.map(Autorizacao::getNome)
+					.collect(Collectors.toList())
+					.toArray(new String[usuario
+										.getAutorizacoes()
+										.size()]))
+					.build();
     }    
 }
