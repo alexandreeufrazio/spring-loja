@@ -13,12 +13,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().httpBasic().and()
         // this disables session creation on Spring Security
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth)
+		    throws Exception {
+	    auth.userDetailsService(userDetailsService);
     }
 
     @Bean
