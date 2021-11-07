@@ -2,15 +2,16 @@ package br.gov.sp.fatec.springlojaapp.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import br.gov.sp.fatec.springlojaapp.entity.Autorizacao;
 import br.gov.sp.fatec.springlojaapp.entity.Usuario;
 import br.gov.sp.fatec.springlojaapp.repository.AutorizacaoRepository;
@@ -57,13 +58,13 @@ public class AutenticaoServiceImpl implements AutenticaoService{
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userNome) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepo.findByNome(userNome);
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepo.findByNome(userName);
 
         if(usuario == null){
-            throw new UsernameNotFoundException("Usuário " + username + " não encontrado!"); 
+            throw new UsernameNotFoundException("Usuário " + userName + " não encontrado!"); 
         }
-        return User.builder().username(username)
+        return User.builder().username(userName)
 			.password(usuario.getSenha())
 			.authorities(usuario.getAutorizacoes()
 					.stream()
@@ -72,6 +73,6 @@ public class AutenticaoServiceImpl implements AutenticaoService{
 					.toArray(new String[usuario
 										.getAutorizacoes()
 										.size()]))
-					.build();
+					.build();      
     }    
 }
