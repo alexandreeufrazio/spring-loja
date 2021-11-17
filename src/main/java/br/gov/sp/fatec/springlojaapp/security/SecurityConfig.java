@@ -1,4 +1,4 @@
-package br.gov.sp.fatec.springlojaapp.Security;
+package br.gov.sp.fatec.springlojaapp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
