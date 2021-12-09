@@ -11,6 +11,7 @@ import br.gov.sp.fatec.springlojaapp.repository.MarcaRepository;
 import br.gov.sp.fatec.springlojaapp.repository.ProdutoRepository;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @Service("produtoService")
 public class ProdutoServiceImpl implements ProdutoService {
@@ -40,6 +41,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
+	@PreAuthorize("isAuthenticated()")
 	public void excluirPorIdProduto(Long id) {
 		Produto produto = produtoRepo.findById(id).get();
 		if(produto != null) {
@@ -51,6 +53,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public Produto pesquisarPorNomeProduto(String nome) {
 		Produto produto = produtoRepo.findByNomeIgnoreCase(nome);
 		if(produto != null){
@@ -60,6 +63,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public Produto pesquisarPorIdProduto (Long id) {
 		Optional<Produto> produtoOp = produtoRepo.findById(id);
         if(produtoOp.isPresent()) {
@@ -69,11 +73,13 @@ public class ProdutoServiceImpl implements ProdutoService {
 	}
 
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public List<Produto> pesquisarTodosProdutos() {
 		return produtoRepo.findAll();
 	}
 
 	@Override
+	@PreAuthorize("isAuthenticated()")
 	public Produto atualizarProduto (Long id, String nome, BigDecimal preco, String nomeMarca) {
 		Produto produto = produtoRepo.findById(id).get();
 

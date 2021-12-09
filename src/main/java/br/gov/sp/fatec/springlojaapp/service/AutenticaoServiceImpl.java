@@ -16,63 +16,110 @@ import br.gov.sp.fatec.springlojaapp.entity.Autorizacao;
 import br.gov.sp.fatec.springlojaapp.entity.Usuario;
 import br.gov.sp.fatec.springlojaapp.repository.AutorizacaoRepository;
 import br.gov.sp.fatec.springlojaapp.repository.UsuarioRepository;
+import br.gov.sp.fatec.springlojaapp.exception.RegistroNaoEncontradoException;
+import java.util.Optional;
 
 @Service("autenticaoService")
 public class AutenticaoServiceImpl implements AutenticaoService{
 
     @Autowired
-    private AutorizacaoRepository autorizacaoRepo;
+    UsuarioRepository usuarioRepo;
 
     @Autowired
-    private UsuarioRepository usuarioRepo;
+    AutorizacaoRepository autorizacaoRepo;
 
     @Autowired
-    private PasswordEncoder passEncoder;
+    private PasswordEncoder passEncorder;
 
-    @Override
     @Transactional
-    public Usuario cadastrarUsuario(String nome, String email, String senha, String nomeAutorizacao) {
-        Autorizacao autorizacao = autorizacaoRepo.findByNome(nomeAutorizacao);
+    public Usuario cadastrarUsuario(String nome, String email ,String senha, String autorizacao) {
+        Autorizacao aut = autorizacaoRepo.findByNome(autorizacao);
+        if (aut == null) {
+            aut = new Autorizacao();
+            aut.setNome(autorizacao);
+            autorizacaoRepo.save(aut);
+        }
 
-    if(autorizacao == null) {
-        autorizacao = new Autorizacao();
-        autorizacao.setNome(nomeAutorizacao);
-        autorizacaoRepo.save(autorizacao);
-    }
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setEmail(email);
+        usuario.setSenha(passEncorder.encode(senha));
+        usuario.setAutorizacoes(new HashSet<Autorizacao>());
+        usuario.getAutorizacoes().add(aut);
+        usuarioRepo.save(usuario);
 
-    Usuario usuario = new Usuario();
-    usuario.setNome(nome);
-    usuario.setEmail(email);
-    usuario.setSenha(passEncoder.encode(senha));
-    usuario.setAutorizacoes(new HashSet<Autorizacao>());
-    usuario.getAutorizacoes().add(autorizacao);
-    usuarioRepo.save(usuario);
-
-    return usuario;
+        return usuario;
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Usuario> buscarTodosUsuarios() {
+
         return usuarioRepo.findAll();
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
+    public Usuario buscarUsuarioPorNome(String nome) {
+      Usuario usuario = usuarioRepo.findByNome(nome);
+      if (usuario != null) {
+        return usuario;
+      }
+      throw new RegistroNaoEncontradoException("Usuário não encontrado!");
+    }
+
+    @Override
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
+    public Usuario buscarUserById(Long id) {
+      Optional<Usuario> usuarioOp = usuarioRepo.findById(id);
+      if (usuarioOp.isPresent()) {
+        return usuarioOp.get();
+      }
+      throw new RegistroNaoEncontradoException("Usuário não encontrado!");
+    }
+
+    @Override
+    @PreAuthorize("isAuthenticated()")
+    public Autorizacao buscarAutorizacaoPorNome(String nome) {
+      Autorizacao autorizacao = autorizacaoRepo.findByNome(nome);
+      if (autorizacao != null) {
+        return autorizacao;
+      }
+      throw new RegistroNaoEncontradoException("Autorização não encontrada!");
+    }
+
+    @Override
+    @PreAuthorize("isAuthenticated()")
+    public void deletarUsuario (Long id){
+                usuarioRepo.deleteById(id);
+    }
+    
+    @Override
+    @PreAuthorize("isAuthenticated()")
+    public Usuario atualizarUsuario (Long id, String nome, String email ,String senha, String autorizacao){
+      
+      Usuario usuario = usuarioRepo.findById(id).get();
+      usuario.setNome(nome);
+      usuario.setEmail(email);
+      usuario.setSenha(passEncorder.encode(senha));
+      usuario.setAutorizacoes(new HashSet<Autorizacao>());
+      usuarioRepo.save(usuario);
+
+      return usuario;
+  }
+
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepo.findByNome(username);
-
-        if(usuario == null){
-            throw new UsernameNotFoundException("Usuário " + username + " não encontrado!"); 
+        if (usuario == null) {
+            throw new UsernameNotFoundException("Usuário " + username + " não encontrado! ");
         }
-        return User.builder().username(username)
-			.password(usuario.getSenha())
-			.authorities(usuario.getAutorizacoes()
-					.stream()
-					.map(Autorizacao::getNome)
-					.collect(Collectors.toList())
-					.toArray(new String[usuario
-										.getAutorizacoes()
-										.size()]))
-					.build();      
-    }   
+        return User.builder().username(username).password(usuario.getSenha())
+                .authorities(usuario.getAutorizacoes().stream()
+                    .map(Autorizacao::getNome).collect(Collectors.toList())
+                    .toArray(new String[usuario.getAutorizacoes().size()]))
+                .build();
+    }
+    
 }

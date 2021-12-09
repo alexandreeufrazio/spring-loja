@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.gov.sp.fatec.springlojaapp.repository.MarcaRepository;
 import br.gov.sp.fatec.springlojaapp.entity.Marca;
 import br.gov.sp.fatec.springlojaapp.exception.RegistroNaoEncontradoException;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,13 +17,14 @@ public class MarcaServiceImpl implements MarcaService{
     @Autowired
 	private MarcaRepository marcaRepo;
 
-
     @Override
+    @PreAuthorize("isAuthenticated()")
     public void excluirMarca (Marca marca){
 		marcaRepo.delete(marca);	
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public void deleteMarca (Long id){
         Optional<Marca> marcaOp = marcaRepo.findById(id);
        
@@ -41,6 +43,7 @@ public class MarcaServiceImpl implements MarcaService{
     }
 	
     @Override
+    @PreAuthorize("isAuthenticated()")
 	public Marca pesquisarPorIdMarca (Long id){
         Optional<Marca> marcaOp = marcaRepo.findById(id);
         if(marcaOp.isPresent()) {
@@ -50,6 +53,7 @@ public class MarcaServiceImpl implements MarcaService{
     }
  
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Marca atualizarMarca (Long id, String nome){
         Marca marca = marcaRepo.findById(id).get();
         if (marca != null){
@@ -61,11 +65,13 @@ public class MarcaServiceImpl implements MarcaService{
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public List<Marca> buscarTodasMarcas() {
 	    return marcaRepo.findAll();
     } 
     
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Marca buscarMarcaPorId(Long id){
         Optional<Marca> marcaOp = marcaRepo.findById(id);
         if(marcaOp.isPresent()) {
@@ -75,6 +81,7 @@ public class MarcaServiceImpl implements MarcaService{
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public Marca buscarMarcaPorNome(String nome){
         Marca marca = marcaRepo.findByNome(nome);
         if (marca != null){
@@ -84,6 +91,7 @@ public class MarcaServiceImpl implements MarcaService{
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
 	@Transactional
     public Marca cadastrarMarca(String nome) {
         Marca marca = marcaRepo.findByNomeIgnoreCase(nome);
